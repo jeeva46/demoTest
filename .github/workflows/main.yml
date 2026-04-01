@@ -31,7 +31,7 @@ jobs:
           -e UAT.postman_environment.json \
           -d data.csv \
           -r cli,htmlextra \
-          --reporter-htmlextra-export .\newman\index.html
+          --reporter-htmlextra-export ./newman/index.html
 
       - name: archieve the code
         uses: actions/upload-artifact@v6.0.0
