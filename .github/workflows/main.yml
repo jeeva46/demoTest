@@ -34,7 +34,7 @@ jobs:
           --reporter-htmlextra-export .\newman\index.html
 
       - name: archieve the code
-        uses: actions/upload-artifact@v3.2.2
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: newman report
           path: newman/*.html
