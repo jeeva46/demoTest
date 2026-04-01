@@ -1,0 +1,67 @@
+name: demo workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: 30 14 * * *
+
+
+jobs:
+  test-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v6.0.2
+      - name: install nodejs
+        uses: actions/setup-node@v6.3.0
+        with:
+          node-version: "22"
+
+      - name: install newman
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+
+      - name: run the collection
+        run: |
+          newman run TestCollection.postman_collection.json \
+          -e UAT.postman_environment.json \
+          -d data.csv \
+          -r cli,htmlextra \
+          --reporter-htmlextra-export .\newman\index.html
+
+      - name: archieve the code
+        uses: actions/upload-artifact@v3.2.2
+        with:
+          name: newman report
+          path: newman/*.html
+
+
+
+
+
+
+
+          
+        
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+          
+        
